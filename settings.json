@@ -1,0 +1,9 @@
+{
+  "dataset": {
+    "path": "/nas.dbms/randy/datasets/arch_denoising",
+    "generate": 50
+  },
+  "image_size": 500,
+  "batch_size": 64,
+  "epochs": 50
+}
