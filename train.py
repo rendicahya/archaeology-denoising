@@ -1,17 +1,18 @@
+import multiprocessing
 import random
 import time
 from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 import torch
-from models import Autoencoder, ViT
 from config import settings as conf
 from dataset import Dataset
+from models import Autoencoder, ViT
+from timer_py import Timer
 from torch import nn, optim
 from torch.utils.data import DataLoader, random_split
 from torchvision import transforms
-import multiprocessing
-from pathlib import Path
 
 
 def set_seed(seed):
@@ -63,7 +64,8 @@ def validate(model, device, val_loader, criterion):
 
 
 def main():
-    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timer = Timer("Train")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     transform = transforms.Compose(
         [
             transforms.Resize(conf.image_size),
@@ -74,6 +76,7 @@ def main():
     )
 
     set_seed(0)
+    timer.start()
 
     dataset = Dataset(conf.dataset.path, "list.csv", transform)
     image_size = conf.image_size
@@ -102,14 +105,14 @@ def main():
         end_time = time.time()
 
         print(
-            f"[{epoch}/{conf.epochs}], train loss: {train_loss:.6f}, val loss: {val_loss:.6f}, time: {end_time - start_time:.2f}s"
+            f"[{epoch}/{conf.epochs}], train loss: {train_loss:.6f}, val. loss: {val_loss:.6f}, time: {end_time - start_time:.2f}s"
         )
 
-    model_filename = f"checkpoints/{model._get_name()}-{image_size}-{current_time}.pth"
+    model_filename = f"checkpoints/{model._get_name()}-{image_size}px-{n_epochs}e-{batch_size}b-{timestamp}.pth"
 
     Path("checkpoints").mkdir(exist_ok=True)
     torch.save(model.state_dict(), model_filename)
-    print("Total time:", time.time() - current_time)
+    timer.stop()
 
 
 if __name__ == "__main__":
