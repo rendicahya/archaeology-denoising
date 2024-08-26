@@ -5,7 +5,7 @@ import torch.nn as nn
 class ViT(nn.Module):
     def __init__(
         self,
-        img_size=224,
+        image_size=224,
         patch_size=16,
         in_channels=1,
         embed_dim=512,
@@ -14,7 +14,7 @@ class ViT(nn.Module):
         num_classes=1,
     ):
         super(ViT, self).__init__()
-        self.img_size = img_size
+        self.image_size = image_size
         self.patch_size = patch_size
         self.in_channels = in_channels
         self.embed_dim = embed_dim
@@ -22,7 +22,7 @@ class ViT(nn.Module):
         self.num_layers = num_layers
         self.num_classes = num_classes
 
-        self.num_patches = (img_size // patch_size) ** 2
+        self.num_patches = (image_size // patch_size) ** 2
         self.seq_length = self.num_patches + 1  # including class token
 
         self.patch_embed = nn.Conv2d(
@@ -40,7 +40,7 @@ class ViT(nn.Module):
         self.mlp_head = nn.Sequential(
             nn.Linear(embed_dim, embed_dim),
             nn.ReLU(),
-            nn.Linear(embed_dim, num_classes * img_size * img_size),
+            nn.Linear(embed_dim, num_classes * image_size * image_size),
         )
 
     def forward(self, x):
@@ -55,9 +55,9 @@ class ViT(nn.Module):
         x = self.transformer(x)  # Shape: (B, seq_length, embed_dim)
         x = x[:, 0]  # Take the class token
 
-        x = self.mlp_head(x)  # Shape: (B, num_classes * img_size * img_size)
+        x = self.mlp_head(x)  # Shape: (B, num_classes * image_size * image_size)
         x = x.view(
-            B, self.in_channels, self.img_size, self.img_size
+            B, self.in_channels, self.image_size, self.image_size
         )  # Reshape to (B, C, H, W)
 
         return x
