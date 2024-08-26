@@ -60,7 +60,7 @@ def main():
         A.ElasticTransform(p=1),
         A.PiecewiseAffine(p=1),
         A.Transpose(p=1),
-        A.Affine(p=1),
+        # A.Affine(p=1),
     ]
     n_src_image = sum(1 for f in (dataset_path / "src").iterdir() if f.is_file())
     n_generate = S.dataset.generate
