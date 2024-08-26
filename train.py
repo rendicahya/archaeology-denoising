@@ -1,5 +1,5 @@
 import click
-from lib.trainer import Trainer
+from engine.trainer import Trainer
 from utils.config_utils import load_config
 
 
