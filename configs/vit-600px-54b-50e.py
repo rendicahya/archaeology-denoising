@@ -13,7 +13,7 @@ transform = transforms.Compose(
         transforms.Normalize(0, 1),
     ]
 )
-dataset_path = "/nas.dbms/randy/datasets/arch_denoising"
+dataset_path = "data/synthetic-v1"
 split_ratio = [0.7, 0.2, 0.1]
 shuffle_train = True
 random_seed = 0
