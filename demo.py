@@ -1,12 +1,10 @@
-import multiprocessing
 from pathlib import Path
 
 import click
 import torch
-from config import settings as conf
-from engine.tester import Tester
 from PIL import Image
-from torch.utils.data import DataLoader
+
+from engine.tester import Tester
 from utils.config_utils import load_config
 
 
