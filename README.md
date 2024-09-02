@@ -2,5 +2,5 @@
 
 ## Dependencies
 ```shell
-pip install click dynaconf pandas
+pip install click dynaconf pandas pyarrow albumentations timerpy tqdm
 ```
