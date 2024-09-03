@@ -49,7 +49,7 @@ def generate_spots(img):
 
 
 def main():
-    dataset_path = Path(S.dataset.path)
+    dataset_path = Path("/nas.dbms/randy/datasets/arch_denoising")
     transforms = [
         A.NoOp(),
         A.HorizontalFlip(p=1),
@@ -60,10 +60,9 @@ def main():
         A.ElasticTransform(p=1),
         A.PiecewiseAffine(p=1),
         A.Transpose(p=1),
-        # A.Affine(p=1),
     ]
     n_src_image = sum(1 for f in (dataset_path / "src").iterdir() if f.is_file())
-    n_generate = S.dataset.generate
+    n_generate = 50
     bar = tqdm(total=n_src_image * len(transforms) * n_generate)
     file_list = {"clean": [], "noise": []}
     count = 0
