@@ -17,7 +17,7 @@ dataset_path = "data/synthetic-v1"
 split_ratio = [0.7, 0.2, 0.1]
 shuffle_train = True
 random_seed = 0
-n_epochs = 1
+n_epochs = 50
 batch_size = 54
 learning_rate = 1e-4
 model = ViT(image_size=image_size, in_channels=1, num_classes=1)
