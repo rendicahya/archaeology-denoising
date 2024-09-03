@@ -9,7 +9,6 @@ import albumentations as A
 import cv2
 import numpy as np
 import pandas as pd
-from config import settings as S
 from tqdm import tqdm
 
 
@@ -49,7 +48,7 @@ def generate_spots(img):
 
 
 def main():
-    dataset_path = Path("/nas.dbms/randy/datasets/arch_denoising")
+    dataset_path = Path("data")
     transforms = [
         A.NoOp(),
         A.HorizontalFlip(p=1),
